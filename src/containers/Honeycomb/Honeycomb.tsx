@@ -1,18 +1,24 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
 import LetterHex from '../../components/LetterHex';
 import './Honeycomb.scss';
-import ChosenLettersContext from '../../utils/ChosenLettersContext';
+import LettersContext from '../../utils/LettersContext';
 import SelectLetterContext from '../../utils/SelectLetterContext';
+import { IMessageInfo } from '../../App';
 
 interface HoneycombProps {
   centerLetter: string;
+  setMessageInfo: Dispatch<SetStateAction<IMessageInfo>>
 }
 
-const Honeycomb: FunctionComponent<HoneycombProps> = ({ centerLetter }) => {
-  const { setChosenLetters, availLetters } = useContext(ChosenLettersContext);
+const Honeycomb: FunctionComponent<HoneycombProps> = ({ centerLetter, setMessageInfo }) => {
+  const { setChosenLetters, availLetters } = useContext(LettersContext);
 
   function selectLetter(e: any, letter: string) {
     e.preventDefault();
+    setMessageInfo(info => { return {
+      ...info,
+      displayMessage: false
+    }})
     setChosenLetters((letters: string[]) => [...letters, letter]);
   }
 

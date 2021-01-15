@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useContext } from 'react';
 
 import './LetterDisplay.scss';
-import ChosenLettersContext from '../../utils/ChosenLettersContext';
+import LettersContext from '../../utils/LettersContext';
 
 const LetterDisplay: FunctionComponent = () => {
-  const { chosenLetters } = useContext(ChosenLettersContext);
+  const { chosenLetters } = useContext(LettersContext);
 
   return <h2>{chosenLetters.join('')}</h2>;
 };

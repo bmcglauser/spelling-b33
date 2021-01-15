@@ -1,16 +1,16 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
-import ChosenLettersContext from '../../../utils/ChosenLettersContext';
+import LettersContext from '../../../utils/LettersContext';
 import './ScrambleButton.scss';
 
 interface ScrambleButtonProps {
-  setAvailLetters: Function;
+  setAvailLetters: Dispatch<SetStateAction<string[]>>;
 }
 
 const ScrambleButton: FunctionComponent<ScrambleButtonProps> = ({
   setAvailLetters
 }) => {
-  const { availLetters } = useContext(ChosenLettersContext);
+  const { availLetters } = useContext(LettersContext);
 
   function scrambleHandler(e: any) {
     e.preventDefault();

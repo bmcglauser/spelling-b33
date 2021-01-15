@@ -1,0 +1,13 @@
+@import '../../App.scss';
+
+.message-text {
+  height: 2em;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+}
+
+.error-message {
+  color: red;
+  font-style: italic;
+}

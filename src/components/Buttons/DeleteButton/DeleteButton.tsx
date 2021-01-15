@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useContext } from 'react';
 import { HiOutlineTrash } from 'react-icons/hi';
-import ChosenLettersContext from '../../../utils/ChosenLettersContext';
+import LettersContext from '../../../utils/LettersContext';
 import './DeleteButton.scss';
 
 const DeleteButton: FunctionComponent = () => {
-  const { setChosenLetters } = useContext(ChosenLettersContext);
+  const { setChosenLetters } = useContext(LettersContext);
 
   function handleDelete(e: any) {
     e.preventDefault();

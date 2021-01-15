@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 interface ISelectLetterContext {
-  selectLetter: Function;
+  selectLetter: (e: any, letter: string) => void
 }
 
 const SelectLetterContext = createContext<ISelectLetterContext>({
