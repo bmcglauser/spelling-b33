@@ -6,7 +6,8 @@ import LetterDisplay from './containers/LetterDisplay';
 import ScrambleButton from './components/Buttons/ScrambleButton';
 import SubmitButton from './components/Buttons/SubmitButton';
 import LettersContext from './utils/LettersContext';
-import MessageDisplay from './containers/MessageDisplay';
+import MessageDisplay from './components/MessageDisplay';
+import ScoreDisplay from './components/ScoreDisplay';
 
 export interface IMessageInfo {
   displayMessage: boolean;
@@ -14,24 +15,35 @@ export interface IMessageInfo {
   recentPoints: number;
 }
 
+export interface IScoreInfo {
+  totalPoints: number;
+  foundWords: string[];
+}
+
+export interface IAllLetters {
+  centerLetter: string;
+  perimLetters: string[];
+}
+
 function App() {
   const [chosenLetters, setChosenLetters]: [
     chosenLetters: string[],
     setChosenLetters: Dispatch<SetStateAction<string[]>>
   ] = useState<string[]>([]);
-  const [availLetters, setAvailLetters]: [
-    availLetters: string[],
-    setAvailLetters: Dispatch<SetStateAction<string[]>>
-  ] = useState(['B', 'C', 'D', 'E', 'F', 'G']);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [centerLetter, setCenterLetter]: [
-    centerLetter: string,
-    setCenterLetter: Dispatch<SetStateAction<string>>
-  ] = useState('A');
-  const [points, setPoints]: [
-    points: number,
-    setPoints: Dispatch<SetStateAction<number>>
-  ] = useState(0);
+  const [allLetters, setAllLetters]: [
+    allLetters: IAllLetters,
+    setAllLetters: Dispatch<SetStateAction<IAllLetters>>
+  ] = useState({
+    centerLetter: 'A',
+    perimLetters: ['B', 'C', 'D', 'E', 'F', 'G']
+  });
+  const [scoreInfo, setScoreInfo]: [
+    scoreInfo: IScoreInfo,
+    setScoreInfo: Dispatch<SetStateAction<IScoreInfo>>
+  ] = useState<IScoreInfo>({
+    totalPoints: 0,
+    foundWords: []
+  });
   const [messageInfo, setMessageInfo]: [
     messageInfo: IMessageInfo,
     setDisplayMessage: Dispatch<SetStateAction<IMessageInfo>>
@@ -43,16 +55,20 @@ function App() {
 
   return (
     <LettersContext.Provider
-      value={{ chosenLetters, setChosenLetters, availLetters }}
+      value={{ chosenLetters, setChosenLetters, allLetters }}
     >
       <div className="app">
+        <ScoreDisplay scoreInfo={scoreInfo} />
         <MessageDisplay messageInfo={messageInfo} />
         <LetterDisplay />
-        <Honeycomb centerLetter={centerLetter} setMessageInfo={setMessageInfo}/>
+        <Honeycomb setMessageInfo={setMessageInfo} />
         <div className="buttons-wrapper">
           <DeleteButton />
-          <ScrambleButton setAvailLetters={setAvailLetters} />
-          <SubmitButton centerLetter={centerLetter} setPoints={setPoints} setMessageInfo={setMessageInfo}/>
+          <ScrambleButton setAllLetters={setAllLetters} />
+          <SubmitButton
+            setScoreInfo={setScoreInfo}
+            setMessageInfo={setMessageInfo}
+          />
         </div>
       </div>
     </LettersContext.Provider>

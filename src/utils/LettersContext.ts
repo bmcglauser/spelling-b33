@@ -1,8 +1,9 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
+import { IAllLetters } from '../App';
 
 interface ILettersContext {
+  allLetters: IAllLetters;
   chosenLetters: string[];
-  availLetters: string[];
   setChosenLetters: Dispatch<SetStateAction<string[]>>;
 }
 
@@ -11,7 +12,10 @@ const LettersContext = createContext<ILettersContext>({
   setChosenLetters: () => {
     return;
   },
-  availLetters: []
+  allLetters: {
+    centerLetter: '',
+    perimLetters: []
+  }
 });
 
 export default LettersContext;

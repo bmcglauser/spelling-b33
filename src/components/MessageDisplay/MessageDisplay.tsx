@@ -1,22 +1,25 @@
 import React, { FunctionComponent } from 'react';
 import './MessageDisplay.scss';
-import {IMessageInfo} from '../../App';
+import { IMessageInfo } from '../../App';
 
 interface MessageDisplayProps {
-  messageInfo: IMessageInfo
+  messageInfo: IMessageInfo;
 }
 
-const MessageDisplay: FunctionComponent<MessageDisplayProps> = ({messageInfo}) => {
+const MessageDisplay: FunctionComponent<MessageDisplayProps> = ({
+  messageInfo
+}) => {
   const { displayMessage, type, recentPoints } = messageInfo;
-  
 
   let messageText = '';
-  switch(type) {
+  switch (type) {
     case 'tooshort':
-      messageText = 'Word must be at least 4 letters in length'
+      messageText = 'Word must be at least 4 letters in length';
       break;
     case 'goodword':
-      messageText = `Good word! ${recentPoints} point${recentPoints === 1 ? '' : 's'} added`
+      messageText = `Good word! ${recentPoints} point${
+        recentPoints === 1 ? '' : 's'
+      } added`;
       break;
     case 'centerrequired':
       messageText = 'Words must all use the center letter';
@@ -28,12 +31,11 @@ const MessageDisplay: FunctionComponent<MessageDisplayProps> = ({messageInfo}) =
       messageText = '';
   }
 
-
   return (
     <p className={`message-text ${type === 'goodword' ? '' : 'error-message'}`}>
-      {displayMessage ? messageText : ''}  
+      {displayMessage ? messageText : ''}
     </p>
-  )
-}
+  );
+};
 
 export default MessageDisplay;

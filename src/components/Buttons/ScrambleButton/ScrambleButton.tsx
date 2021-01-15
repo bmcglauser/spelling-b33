@@ -1,20 +1,25 @@
-import React, { Dispatch, FunctionComponent, SetStateAction, useContext } from 'react';
+import React, {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useContext
+} from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
+import { IAllLetters } from '../../../App';
 import LettersContext from '../../../utils/LettersContext';
 import './ScrambleButton.scss';
 
 interface ScrambleButtonProps {
-  setAvailLetters: Dispatch<SetStateAction<string[]>>;
+  setAllLetters: Dispatch<SetStateAction<IAllLetters>>;
 }
 
 const ScrambleButton: FunctionComponent<ScrambleButtonProps> = ({
-  setAvailLetters
+  setAllLetters
 }) => {
-  const { availLetters } = useContext(LettersContext);
-
+  const { perimLetters } = useContext(LettersContext).allLetters;
   function scrambleHandler(e: any) {
     e.preventDefault();
-    let arrayToRandomize = [...availLetters];
+    let arrayToRandomize = [...perimLetters];
     let randomizedArr: string[] = [];
     for (let i = 0; i < 6; i++) {
       let x = Math.floor(Math.random() * (6 - i));
@@ -22,7 +27,12 @@ const ScrambleButton: FunctionComponent<ScrambleButtonProps> = ({
       arrayToRandomize.splice(x, 1);
       randomizedArr.push(el);
     }
-    setAvailLetters(randomizedArr);
+    setAllLetters((lettersObj) => {
+      return {
+        ...lettersObj,
+        perimLetters: randomizedArr
+      };
+    });
   }
 
   return (
