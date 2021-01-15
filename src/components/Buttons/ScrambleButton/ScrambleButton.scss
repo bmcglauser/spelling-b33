@@ -1,0 +1,9 @@
+@import '../../../App.scss';
+
+.scramble-button {
+  @include button-styling;
+  
+  .scramble-icon {
+    @include icon-styling;
+  }
+}

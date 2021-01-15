@@ -1,0 +1,11 @@
+@import '../../../App.scss';
+
+.submit-button {
+  @include button-styling;
+
+  .submit-icon {
+    @include icon-styling;
+    stroke-width: .5;
+    transform: scaleY(1.2);
+  }
+}

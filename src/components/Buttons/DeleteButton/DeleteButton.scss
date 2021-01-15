@@ -1,0 +1,9 @@
+@import '../../../App.scss';
+
+.delete-button {
+  @include button-styling;
+
+  .delete-icon {
+    @include icon-styling;
+  }
+}

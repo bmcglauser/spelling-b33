@@ -1,0 +1,44 @@
+@import '../../App.scss';
+
+.hex-grand-wrapper {
+  display: grid;
+
+  > * {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  svg {
+    margin-top: 5px;
+    polygon {
+      fill: $button-color;
+      stroke: none;
+      
+      &:hover{
+        fill:adjust-color($color: $button-color, $lightness: -10%)
+      }
+      &:active{
+        fill:adjust-color($color: $button-color, $lightness: -15%)
+      }
+    }
+    .centerHex {
+      fill: $center-color;
+      &:hover{
+        fill:adjust-color($color: $center-color, $lightness: -10%)
+      }
+      &:active{
+        fill:adjust-color($color: $center-color, $lightness: -15%)
+      }
+    }
+  }
+  p {
+    margin-top: calc(50% - 25px);
+    margin-left: calc(50% - 13px);
+    height:20px;
+    width:20px;
+    font-size:2.5em;
+    font-weight: bold;
+    user-select: none;
+    pointer-events: none;
+  }
+}

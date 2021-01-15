@@ -1,0 +1,18 @@
+@import '../../App.scss';
+
+.honeycomb-grand-wrapper {
+  display: flex;
+  
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .honeycomb-col-a {
+    
+  }
+  .honeycomb-col-b, .honeycomb-col-c {
+    margin-left: -30px;
+  }
+}
