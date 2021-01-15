@@ -1,6 +1,8 @@
 # Spelling B33
 
-This project is inspired by (and a direct clone of) the game Spelling Bee, by New York Times Games. I play the game every day 😊 Built for fun! 
+This project is inspired by (and a direct clone of) the game Spelling Bee, by New York Times Games. I play the game every day 😊
+
+Built for fun! 
 
 Frontend now operational, Node backend with a dictionary API will be next.
 
