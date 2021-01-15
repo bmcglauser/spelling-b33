@@ -7,27 +7,31 @@ import ScrambleButton from './components/Buttons/ScrambleButton';
 import SubmitButton from './components/Buttons/SubmitButton';
 import ChosenLettersContext from './utils/ChosenLettersContext';
 
-
 function App() {
-  const [chosenLetters, setChosenLetters] :
-        [chosenLetters: string[], setChosenLetters: Function]
-        = useState([]);
-  const [availLetters, setAvailLetters] :
-        [availLetters: string[], setAvailLetters: Function]
-        = useState(['B','C','D','E','F','G']);
+  const [chosenLetters, setChosenLetters]: [
+    chosenLetters: string[],
+    setChosenLetters: Function
+  ] = useState([]);
+  const [availLetters, setAvailLetters]: [
+    availLetters: string[],
+    setAvailLetters: Function
+  ] = useState(['B', 'C', 'D', 'E', 'F', 'G']);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [centerLetter, setCenterLetter]:
-        [centerLetter: string, setCenterLetter: Function]
-        = useState('A');
+  const [centerLetter, setCenterLetter]: [
+    centerLetter: string,
+    setCenterLetter: Function
+  ] = useState('A');
 
   return (
-    <ChosenLettersContext.Provider value={{chosenLetters, setChosenLetters, availLetters}}>
+    <ChosenLettersContext.Provider
+      value={{ chosenLetters, setChosenLetters, availLetters }}
+    >
       <div className="app">
         <LetterDisplay />
-        <Honeycomb centerLetter={centerLetter}/>
+        <Honeycomb centerLetter={centerLetter} />
         <div className="buttons-wrapper">
           <DeleteButton />
-          <ScrambleButton setAvailLetters={setAvailLetters}/>
+          <ScrambleButton setAvailLetters={setAvailLetters} />
           <SubmitButton />
         </div>
       </div>

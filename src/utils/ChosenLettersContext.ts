@@ -6,6 +6,12 @@ interface IChosenLettersContext {
   setChosenLetters: Function;
 }
 
-const ChosenLettersContext = createContext<IChosenLettersContext>({chosenLetters:[], setChosenLetters: ()=>{return }, availLetters:[]});
+const ChosenLettersContext = createContext<IChosenLettersContext>({
+  chosenLetters: [],
+  setChosenLetters: () => {
+    return;
+  },
+  availLetters: []
+});
 
 export default ChosenLettersContext;
