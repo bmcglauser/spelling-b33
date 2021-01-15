@@ -4,9 +4,10 @@ This project is inspired by (and a direct clone of) the game Spelling Bee, by Ne
 
 Built for fun! 
 
-Frontend now operational, Node backend with a dictionary API will be next.
+Now functionally operational
+- next steps will be to add a choice of puzzles, and optimize access to dictionary library
 
-![Screen Shot 2021-01-15 at 12 33 46 AM](https://user-images.githubusercontent.com/25126281/104685582-64884700-56c9-11eb-8a31-78d203c7725f.png)
+![Screen Shot 2021-01-15 at 1 50 28 PM](https://user-images.githubusercontent.com/25126281/104766608-df3c7b00-5738-11eb-94e3-cee7d5468c3b.png)
 
 ## Give it a try!
 
