@@ -1,14 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
+import StateContext from '../../utils/StateContext';
 import './MessageDisplay.scss';
-import { IMessageInfo } from '../../App';
 
-interface MessageDisplayProps {
-  messageInfo: IMessageInfo;
-}
-
-const MessageDisplay: FunctionComponent<MessageDisplayProps> = ({
-  messageInfo
-}) => {
+const MessageDisplay: FunctionComponent = () => {
+  const { messageInfo } = useContext(StateContext).state
   const { displayMessage, type, recentPoints } = messageInfo;
 
   let messageText = '';

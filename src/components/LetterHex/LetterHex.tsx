@@ -1,20 +1,18 @@
 import React, { FunctionComponent, useContext } from 'react';
 import './LetterHex.scss';
-import SelectLetterContext from '../../utils/SelectLetterContext';
+import HoneycombContext from '../../utils/HoneycombContext';
 
 interface LetterHexProps {
-  scalar: number;
   center?: boolean;
   letter: string;
 }
 
 const LetterHex: FunctionComponent<LetterHexProps> = ({
-  scalar,
   center,
   letter
 }) => {
-  const { selectLetter } = useContext(SelectLetterContext);
-  const k = scalar;
+  const { selectLetter, scaleFactor } = useContext(HoneycombContext);
+  const k = scaleFactor;
   const width = 2 * k;
   const heightConst = Math.sqrt(3) * k;
   const margin = (width - heightConst) / 2;

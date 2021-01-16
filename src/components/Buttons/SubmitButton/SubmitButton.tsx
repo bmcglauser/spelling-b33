@@ -1,29 +1,19 @@
 import React, {
   FunctionComponent,
   useContext,
-  Dispatch,
-  SetStateAction
 } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import './SubmitButton.scss';
-import LettersContext from '../../../utils/LettersContext';
+import StateContext from '../../../utils/StateContext';
 import checkWord from 'check-if-word';
-import { IMessageInfo, IScoreInfo } from '../../../App';
 
 const words = checkWord('en');
 
-interface SubmitButtonProps {
-  setScoreInfo: Dispatch<SetStateAction<IScoreInfo>>;
-  setMessageInfo: Dispatch<SetStateAction<IMessageInfo>>;
-}
-
-const SubmitButton: FunctionComponent<SubmitButtonProps> = ({
-  setScoreInfo,
-  setMessageInfo
-}) => {
-  const { setChosenLetters, chosenLetters, allLetters } = useContext(
-    LettersContext
+const SubmitButton: FunctionComponent = () => {
+  const { setState, state } = useContext(
+    StateContext
   );
+  const { chosenLetters, allLetters } = state;
   const { centerLetter } = allLetters;
 
   function handleSubmit(e: any) {
@@ -33,46 +23,51 @@ const SubmitButton: FunctionComponent<SubmitButtonProps> = ({
       if (letter === centerLetter) centerPresent = true;
     }
     if (!chosenLetters.length || chosenLetters.length < 4) {
-      setMessageInfo((info) => {
-        return {
-          ...info,
+      setState(state=> {return {
+        ...state,
+        messageInfo: {
+          ...state.messageInfo,
           displayMessage: true,
           type: 'tooshort'
-        };
-      });
+        }
+      }})
     } else if (!centerPresent) {
-      setMessageInfo((info) => {
-        return {
-          ...info,
+      setState(state=> {return {
+        ...state,
+        messageInfo: {
+          ...state.messageInfo,
           displayMessage: true,
           type: 'centerrequired'
-        };
-      });
+        }
+      }})
     } else if (words.check(chosenLetters.join(''))) {
       let pointsToAdd = chosenLetters.length === 4 ? 1 : chosenLetters.length;
-      setMessageInfo((info) => {
-        return {
+      setState(state=> {return {
+        ...state,
+        messageInfo: {
           displayMessage: true,
           type: 'goodword',
           recentPoints: pointsToAdd
-        };
-      });
-      setScoreInfo((info) => {
-        return {
-          foundWords: [...info.foundWords, chosenLetters.join('')],
-          totalPoints: info.totalPoints + pointsToAdd
-        };
-      });
+        },
+        scoreInfo: {
+          foundWords: [...state.scoreInfo.foundWords, chosenLetters.join('')],
+          totalPoints: state.scoreInfo.totalPoints + pointsToAdd
+        }
+      }})
     } else {
-      setMessageInfo((info) => {
-        return {
-          ...info,
+      setState(state=> {return {
+        ...state,
+        messageInfo: {
+          ...state.messageInfo,
           displayMessage: true,
           type: 'notaword'
-        };
-      });
+        }
+      }})
     }
-    setChosenLetters((letters: string[]) => []);
+    setState(state=> {return {
+      ...state,
+      chosenLetters: []
+    }})
   }
 
   return (
