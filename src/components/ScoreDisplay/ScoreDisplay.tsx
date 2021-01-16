@@ -1,12 +1,10 @@
-import React, { FunctionComponent } from 'react';
-import { IScoreInfo } from '../../App';
+import React, { FunctionComponent, useContext } from 'react';
+import StateContext from '../../utils/StateContext';
 import './ScoreDisplay.scss';
 
-interface ScoreDisplayProps {
-  scoreInfo: IScoreInfo;
-}
 
-const ScoreDisplay: FunctionComponent<ScoreDisplayProps> = ({ scoreInfo }) => {
+const ScoreDisplay: FunctionComponent = () => {
+  const { scoreInfo } = useContext(StateContext).state;
   const { totalPoints, foundWords } = scoreInfo;
 
   return (

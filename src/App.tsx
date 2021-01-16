@@ -1,78 +1,54 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React from 'react';
 import './App.scss';
 import DeleteButton from './components/Buttons/DeleteButton';
-import Honeycomb from './containers/Honeycomb';
-import LetterDisplay from './containers/LetterDisplay';
+import Honeycomb from './components/Honeycomb';
+import LetterDisplay from './components/LetterDisplay';
 import ScrambleButton from './components/Buttons/ScrambleButton';
 import SubmitButton from './components/Buttons/SubmitButton';
-import LettersContext from './utils/LettersContext';
+import StateContext, { IState } from './utils/StateContext';
 import MessageDisplay from './components/MessageDisplay';
 import ScoreDisplay from './components/ScoreDisplay';
 
-export interface IMessageInfo {
-  displayMessage: boolean;
-  type: 'tooshort' | 'goodword' | 'centerrequired' | 'notaword';
-  recentPoints: number;
-}
+class App extends React.Component<{}, IState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      chosenLetters: [],
+      allLetters: {centerLetter: 'A', perimLetters: ['B','C','D','E','F','G']},
+      scoreInfo: {totalPoints: 0, foundWords: []},
+      messageInfo: {
+        displayMessage: false,
+        type: 'tooshort',
+        recentPoints: 0
+      }
+    }
+  }
 
-export interface IScoreInfo {
-  totalPoints: number;
-  foundWords: string[];
-}
+  setChosenLetters (newLetters: string[]) {
+    this.setState({
+      ...this.state,
+      chosenLetters: newLetters
+    })
+  }
 
-export interface IAllLetters {
-  centerLetter: string;
-  perimLetters: string[];
-}
-
-function App() {
-  const [chosenLetters, setChosenLetters]: [
-    chosenLetters: string[],
-    setChosenLetters: Dispatch<SetStateAction<string[]>>
-  ] = useState<string[]>([]);
-  const [allLetters, setAllLetters]: [
-    allLetters: IAllLetters,
-    setAllLetters: Dispatch<SetStateAction<IAllLetters>>
-  ] = useState({
-    centerLetter: 'A',
-    perimLetters: ['B', 'C', 'D', 'E', 'F', 'G']
-  });
-  const [scoreInfo, setScoreInfo]: [
-    scoreInfo: IScoreInfo,
-    setScoreInfo: Dispatch<SetStateAction<IScoreInfo>>
-  ] = useState<IScoreInfo>({
-    totalPoints: 0,
-    foundWords: []
-  });
-  const [messageInfo, setMessageInfo]: [
-    messageInfo: IMessageInfo,
-    setDisplayMessage: Dispatch<SetStateAction<IMessageInfo>>
-  ] = useState<IMessageInfo>({
-    displayMessage: false,
-    type: 'centerrequired',
-    recentPoints: 2
-  });
-
-  return (
-    <LettersContext.Provider
-      value={{ chosenLetters, setChosenLetters, allLetters }}
+  render() { return(
+    <StateContext.Provider
+      value={{ state: this.state, setState: this.setState.bind(this)}}
     >
       <div className="app">
-        <ScoreDisplay scoreInfo={scoreInfo} />
-        <MessageDisplay messageInfo={messageInfo} />
+        <ScoreDisplay />
+        <MessageDisplay />
         <LetterDisplay />
-        <Honeycomb setMessageInfo={setMessageInfo} />
+        <Honeycomb />
         <div className="buttons-wrapper">
           <DeleteButton />
-          <ScrambleButton setAllLetters={setAllLetters} />
-          <SubmitButton
-            setScoreInfo={setScoreInfo}
-            setMessageInfo={setMessageInfo}
-          />
+          <ScrambleButton />
+          <SubmitButton />
         </div>
       </div>
-    </LettersContext.Provider>
+    </StateContext.Provider>
   );
+}
 }
 
 export default App;
